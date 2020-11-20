@@ -7,6 +7,7 @@ package br.com.associacao.dao;
 
 import br.com.associacao.entidade.Cliente;
 import br.com.associacao.entidade.Endereco;
+import br.com.associacao.entidade.Pessoa;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,34 +21,21 @@ import java.util.List;
  *
  * @author Admin
  */
-public class ClienteDaoImpl implements Serializable {
+public class ClienteDaoImpl extends PessoaDaoImpl implements Serializable {
 
-    private Connection conexao;
-    private PreparedStatement preparando;
-    private ResultSet resultSet;
-
-    public void salvar(Cliente cliente) throws SQLException {
-        
-        
-        String sql = "INSERT INTO cliente(nome, email, telefone, salario) VALUES(?, ?, ?, ?)";
-
+    @Override
+    public void salvar(Pessoa pessoa) throws SQLException {
+        super.salvar(pessoa);
+        Cliente cliente = (Cliente) pessoa;  //casting
+        String sql = "INSERT INTO cliente(salario, idPessoa)"
+                                           + " VALUES(?, ?)";
         try {
-            conexao = FabricaConexao.abrirConexao();
-            //preparando = conexao.prepareStatement(sql); padrão usado
-            preparando = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS); //utiliza quando usar outra tabela para gerar o id quando salvar
-            preparando.setString(1, cliente.getNome());
-            preparando.setString(2, cliente.getEmail());
-            preparando.setString(3, cliente.getTelefone());
-            preparando.setDouble(4, cliente.getSalario());
+            preparando = conexao.prepareStatement(sql); 
+            preparando.setDouble(1, cliente.getSalario());
+            preparando.setInt(2, cliente.getId());
             preparando.executeUpdate();
-            resultSet = preparando.getGeneratedKeys(); //utilizar quando usar outra tabela para pegar a chave primaria
-            resultSet.next(); //acessar resultset para verificar se tem registro
-            cliente.setId(resultSet.getInt(1)); //retorna o primeiro valor de resultset
-            
             EnderecoDaoImpl enderecoDaoImpl = new EnderecoDaoImpl();
             enderecoDaoImpl.salvarEnderecoCliente(cliente.getEndereco(), cliente.getId(), conexao);
-
-            
         } catch (SQLException eSQL) {
             System.err.println("Erro ao salvar cliente " + eSQL.getMessage());
         } finally {

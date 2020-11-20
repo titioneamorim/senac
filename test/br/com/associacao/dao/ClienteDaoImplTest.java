@@ -24,7 +24,7 @@ public class ClienteDaoImplTest {
         clienteDaoImpl = new ClienteDaoImpl();
     }
 
-    //@Test
+    @Test
     public void testSalvarCliente() throws Exception {
         System.out.println("salvar");
         cliente = new Cliente(null, UtilGerador.gerarCaracter(10), UtilGerador.gerarEmail(),
@@ -39,7 +39,7 @@ public class ClienteDaoImplTest {
         clienteDaoImpl.salvar(cliente);
     }
     
-    @org.junit.Test
+//    @org.junit.Test
     public void testAlterar() throws Exception {
         System.out.println("alterar");
         
