@@ -23,19 +23,21 @@ import java.util.List;
  */
 public class ClienteDaoImpl extends PessoaDaoImpl implements Serializable {
 
+
     @Override
-    public void salvar(Pessoa pessoa) throws SQLException {
-        super.salvar(pessoa);
-        Cliente cliente = (Cliente) pessoa;  //casting
-        String sql = "INSERT INTO cliente(salario, idPessoa)"
-                                           + " VALUES(?, ?)";
+    public void salvar(Pessoa pessoa) throws SQLException { 
+        Cliente cliente = (Cliente) pessoa;
+        super.salvar(cliente);
+        String sql = "INSERT INTO cliente(salario, idPessoa) VALUES(?, ?)";
         try {
-            preparando = conexao.prepareStatement(sql); 
+            preparando = conexao.prepareStatement(sql);            
             preparando.setDouble(1, cliente.getSalario());
             preparando.setInt(2, cliente.getId());
-            preparando.executeUpdate();
+            preparando.executeUpdate();           
+            
             EnderecoDaoImpl enderecoDaoImpl = new EnderecoDaoImpl();
             enderecoDaoImpl.salvarEnderecoCliente(cliente.getEndereco(), cliente.getId(), conexao);
+            
         } catch (SQLException eSQL) {
             System.err.println("Erro ao salvar cliente " + eSQL.getMessage());
         } finally {
@@ -67,25 +69,13 @@ public class ClienteDaoImpl extends PessoaDaoImpl implements Serializable {
         }
     }
 
-    public void excluir(Integer id) throws SQLException {
-        try {
-            conexao = FabricaConexao.abrirConexao();
-            preparando = conexao.prepareStatement("DELETE FROM cliente WHERE id = ?");
-            preparando.setInt(1, id);
-            preparando.executeUpdate();
-        } catch (SQLException e) {
-            System.err.println("Erro ao excluir " + e.getMessage());
-        } finally {
-            FabricaConexao.fecharConexao(conexao, preparando);
-        }
-    }
 
     public Cliente pesquisarPorId(Integer id) throws SQLException {
         Cliente cliente = null;
-        String consulta = "SELECT * FROM cliente c"
-                + " JOIN endereco e on e.idCliente = c.id"
-                + " WHERE c.id = ?";
-
+        String consulta = "SELECT * FROM cliente c "
+                + " INNER JOIN pessoa p on c.idPessoa = p.id"
+                + " INNER JOIN endereco e on e.idCliente = c.idPessoa"
+                + " WHERE p.id = ?";
         try {
             conexao = FabricaConexao.abrirConexao();
             preparando = conexao.prepareStatement(consulta);
@@ -118,22 +108,34 @@ public class ClienteDaoImpl extends PessoaDaoImpl implements Serializable {
     }
 
     public List<Cliente> pesquisarPorNome(String nome) throws SQLException {
-        String consulta = "SELECT * FROM cliente  WHERE nome LIKE ?";
+        String consulta = "SELECT * FROM cliente c "
+                + "inner join pessoa p on c.idPessoa = p.id "
+                + "inner JOIN endereco e on e.idCliente = c.idPessoa "
+                + " WHERE p.nome LIKE ?";
         Cliente cliente;
+        Endereco endereco;
         List<Cliente> clientes = new ArrayList<>();
         try {
-            System.out.println("Teste do GitHub");
             conexao = FabricaConexao.abrirConexao();
             preparando = conexao.prepareStatement(consulta);
             preparando.setString(1, "%" + nome + "%");
             resultSet = preparando.executeQuery();
             while (resultSet.next()) {
                 cliente = new Cliente();
-                cliente.setId(resultSet.getInt("id"));
+                cliente.setId(resultSet.getInt("p.id"));
                 cliente.setNome(resultSet.getString("nome"));
                 cliente.setEmail(resultSet.getString("email"));
                 cliente.setTelefone(resultSet.getString("telefone"));
                 cliente.setSalario(resultSet.getDouble("salario"));
+                endereco = new Endereco();
+                endereco.setId(resultSet.getInt("e.id"));
+                endereco.setLogradouro(resultSet.getString("logradouro"));
+                endereco.setNumero(resultSet.getString("numero"));
+                endereco.setBairro(resultSet.getString("bairro"));
+                endereco.setCidade(resultSet.getString("cidade"));
+                endereco.setEstado(resultSet.getString("estado"));
+                endereco.setCep(resultSet.getString("cep"));
+                cliente.setEndereco(endereco);
                 clientes.add(cliente);
             }
         } catch (SQLException e) {

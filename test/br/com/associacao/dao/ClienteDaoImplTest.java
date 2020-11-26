@@ -33,33 +33,33 @@ public class ClienteDaoImplTest {
         Endereco endereco = new Endereco(null, UtilGerador.gerarCaracter(10), UtilGerador.gerarNumero(3),
                 UtilGerador.gerarCaracter(10), UtilGerador.gerarCaracter(10), UtilGerador.gerarCaracter(2),
                 UtilGerador.gerarNumero(5) + "-" + UtilGerador.gerarNumero(3));
-        
+
         cliente.setEndereco(endereco);
-        
+
         clienteDaoImpl.salvar(cliente);
     }
-    
-//    @org.junit.Test
+
+//    @Test
     public void testAlterar() throws Exception {
         System.out.println("alterar");
-        
+
         cliente = clienteDaoImpl.pesquisarPorId(11);
         cliente.setNome("aaa" + UtilGerador.gerarNome());
         cliente.getEndereco().setLogradouro("log alterado");
-        
+
         clienteDaoImpl.alterar(cliente);
     }
 
-    // @Test
+     @Test
     public void testExcluir() throws Exception {
         System.out.println("excluir");
         clienteDaoImpl.excluir(3);
     }
 
-    //@Test
+//    @Test
     public void testPesquisarPorId() throws Exception {
         System.out.println("pesquisar Por Id");
-        cliente = clienteDaoImpl.pesquisarPorId(11);
+        cliente = clienteDaoImpl.pesquisarPorId(1);
         System.out.println("id: " + cliente.getId());
         System.out.println("nome: " + cliente.getNome());
         System.out.println("email: " + cliente.getEmail());
@@ -71,18 +71,24 @@ public class ClienteDaoImplTest {
         System.out.println("Bairro: " + cliente.getEndereco().getBairro());
         System.out.println("Estado: " + cliente.getEndereco().getEstado());
         System.out.println("CEP: " + cliente.getEndereco().getCep());
-            }
+    }
 
-    //@Test
+//    @Test
     public void testPesquisarPorNome() throws Exception {
         System.out.println("pesquisar Por Nome");
-        List<Cliente> clientes = clienteDaoImpl.pesquisarPorNome("D");
+        List<Cliente> clientes = clienteDaoImpl.pesquisarPorNome("Silva");
         for (Cliente cli : clientes) {
             System.out.println("id: " + cli.getId());
             System.out.println("nome: " + cli.getNome());
             System.out.println("email: " + cli.getEmail());
             System.out.println("telefone: " + cli.getTelefone());
             System.out.println("salario: R$" + cli.getSalario());
+            System.out.println("Id Endereço: " + cli.getEndereco().getId());
+            System.out.println("Logradouro: " + cli.getEndereco().getLogradouro());
+            System.out.println("Número: " + cli.getEndereco().getNumero());
+            System.out.println("Bairro: " + cli.getEndereco().getBairro());
+            System.out.println("Estado: " + cli.getEndereco().getEstado());
+            System.out.println("CEP: " + cli.getEndereco().getCep());
             System.out.println("");
         }
     }

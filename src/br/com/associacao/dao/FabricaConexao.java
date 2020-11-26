@@ -23,7 +23,7 @@ public class FabricaConexao {
            Class.forName("com.mysql.cj.jdbc.Driver");
            driver = DriverManager.getConnection("jdbc:mysql://localhost:3306/associacao"
                + "?useTimezone=true&serverTimezone=America/Sao_Paulo&zeroDateTimeBehavior=convertToNull",
-                    "root", "");
+                    "root", "root");
         } catch (ClassNotFoundException | SQLException e) {
             System.err.println("Erro ao conectar ao banco " + e.getMessage());
         }
