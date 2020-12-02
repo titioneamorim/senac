@@ -25,6 +25,12 @@ public class EnderecoDaoImpl implements Serializable {
 
         salvar(conexao, sql, endereco, idEstrangeiro);
     }
+    
+    public void salvarEnderecoFuncionario(Endereco endereco, int idEstrangeiro, Connection conexao) throws SQLException {
+        String sql = "INSERT INTO endereco(logradouro, numero, bairro, cidade, estado, cep, idFuncionario) "
+                + "VALUES(?, ?, ?, ?, ?, ?, ?)";
+        salvar(conexao, sql, endereco, idEstrangeiro);
+    }
 
     public void salvarEnderecoFornecedor(Endereco endereco, int idEstrangeiro, Connection conexao) throws SQLException {
         String sql = "INSERT INTO endereco(logradouro, numero, bairro, cidade, estado, cep, idFornecedor) VALUES(?, ?, ?, ?, ?, ?, ?)";

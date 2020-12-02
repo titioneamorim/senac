@@ -23,13 +23,9 @@ public class TelefoneDaoImpl implements Serializable{
     public void salvarTelefoneProfessor(List<Telefone> telefones, int chaveEstrangeira, Connection conn) throws SQLException {
         String sql = "INSERT INTO telefone(tipo, numero, operadora, idProfessor) VALUES(?, ?, ?, ?)";
         
-        for (Telefone telefone : telefones) {
-            
-            salvar(conn, sql, telefone, chaveEstrangeira);
-            
-        }
-        
-        
+        for (Telefone telefone : telefones) {            
+            salvar(conn, sql, telefone, chaveEstrangeira);            
+        }               
     }
 
     private void salvar(Connection conexao, String sql, Telefone telefone, int idEstrangeiro) throws SQLException {

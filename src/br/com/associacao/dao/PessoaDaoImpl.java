@@ -5,6 +5,7 @@
  */
 package br.com.associacao.dao;
 
+import br.com.associacao.entidade.Cliente;
 import br.com.associacao.entidade.Pessoa;
 import java.io.Serializable;
 import java.sql.Connection;
@@ -38,6 +39,22 @@ public class PessoaDaoImpl implements Serializable {
         } catch (SQLException e) {
             System.err.println("Erro ao salvar Pessoa " + e.getMessage());
         }
+    }
+    
+    public void alterar(Pessoa pessoa) throws SQLException {
+        String sql = "UPDATE pessoa SET nome = ?, email = ?, telefone = ? WHERE id = ?";
+        try {
+            conexao = FabricaConexao.abrirConexao();
+            preparando = conexao.prepareStatement(sql);
+            preparando.setString(1, pessoa.getNome());
+            preparando.setString(2, pessoa.getEmail());
+            preparando.setString(3, pessoa.getTelefone());
+            preparando.setInt(4, pessoa.getId());
+            preparando.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.err.println("Erro ao alterar pessoa " + e.getMessage());
+        } 
     }
     
     

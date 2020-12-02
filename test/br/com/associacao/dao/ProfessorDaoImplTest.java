@@ -18,42 +18,39 @@ import static org.junit.Assert.*;
  * @author HP
  */
 public class ProfessorDaoImplTest {
-    
+
     private Professor professor;
     private ProfessorDaoImpl professorDaoImpl;
-    
+
     public ProfessorDaoImplTest() {
+        professorDaoImpl = new ProfessorDaoImpl();
     }
 
-    @Test
+//    @Test
     public void testSalvar() throws Exception {
         System.out.println("salvar");
         professor = new Professor(
-           null,
+                null,
                 UtilGerador.gerarNome(),
                 UtilGerador.gerarNumero(3) + "." + UtilGerador.gerarNumero(3) + "."
                 + UtilGerador.gerarNumero(3) + "-" + UtilGerador.gerarNumero(2),
                 UtilGerador.gerarNumero(6));
-        
+
         List<Telefone> telefones = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
             telefones.add(gerarTelefone());
         }
-        
         professor.setTelefones(telefones);
-        professorDaoImpl = new ProfessorDaoImpl();
-        
         professorDaoImpl.salvar(professor);
     }
-    
-    private Telefone gerarTelefone(){
+
+    private Telefone gerarTelefone() {
         Telefone tel = new Telefone(
-        null,
+                null,
                 "Fixo",
-               UtilGerador.gerarTelefoneFixo(),
+                UtilGerador.gerarTelefoneFixo(),
                 "Vivo");
-        
-        
+
         return tel;
     }
 
@@ -63,7 +60,6 @@ public class ProfessorDaoImplTest {
         Professor professor = null;
         ProfessorDaoImpl instance = new ProfessorDaoImpl();
         instance.alterar(professor);
-        fail("The test case is a prototype.");
     }
 
 //    @Test
@@ -72,18 +68,13 @@ public class ProfessorDaoImplTest {
         Integer id = null;
         ProfessorDaoImpl instance = new ProfessorDaoImpl();
         instance.excluir(id);
-        fail("The test case is a prototype.");
     }
 
-//    @Test
+    @Test
     public void testPesquisarPorId() throws Exception {
         System.out.println("pesquisarPorId");
-        Integer id = null;
-        ProfessorDaoImpl instance = new ProfessorDaoImpl();
-        Professor expResult = null;
-        Professor result = instance.pesquisarPorId(id);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        professor = professorDaoImpl.pesquisarPorId(2);
+        mostraProfessor();
     }
 
 //    @Test
@@ -96,5 +87,19 @@ public class ProfessorDaoImplTest {
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }
-    
+
+    public void mostraProfessor() {
+        System.out.println("Id Professor: " + professor.getId());
+        System.out.println("Professor: " + professor.getNome());
+        System.out.println("CPF: " + professor.getCpf());
+        System.out.println("Crachá: " + professor.getNumeroCracha());
+        for (Telefone telefone : professor.getTelefones()) {
+            System.out.println("");
+            System.out.println("ID Telefone " + telefone.getId());
+            System.out.println("Numero " + telefone.getNumero());
+            System.out.println("Tipo " + telefone.getTipo());
+            System.out.println("Operadora " + telefone.getOperadora());
+        }
+    }
+
 }

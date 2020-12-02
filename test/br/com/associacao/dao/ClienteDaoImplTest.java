@@ -24,7 +24,7 @@ public class ClienteDaoImplTest {
         clienteDaoImpl = new ClienteDaoImpl();
     }
 
-    @Test
+//    @Test
     public void testSalvarCliente() throws Exception {
         System.out.println("salvar");
         cliente = new Cliente(null, UtilGerador.gerarCaracter(10), UtilGerador.gerarEmail(),
@@ -39,18 +39,20 @@ public class ClienteDaoImplTest {
         clienteDaoImpl.salvar(cliente);
     }
 
-//    @Test
+    @Test
     public void testAlterar() throws Exception {
         System.out.println("alterar");
 
-        cliente = clienteDaoImpl.pesquisarPorId(11);
-        cliente.setNome("aaa" + UtilGerador.gerarNome());
+        cliente = clienteDaoImpl.pesquisarPorId(1);
+        cliente.setNome("Marco Silva da Silva " + UtilGerador.gerarNome());
+        cliente.setSalario(Double.parseDouble(UtilGerador.gerarNumero(4)));
         cliente.getEndereco().setLogradouro("log alterado");
+        cliente.getEndereco().setCidade(UtilGerador.gerarCidade());
 
         clienteDaoImpl.alterar(cliente);
     }
 
-     @Test
+//     @Test
     public void testExcluir() throws Exception {
         System.out.println("excluir");
         clienteDaoImpl.excluir(3);

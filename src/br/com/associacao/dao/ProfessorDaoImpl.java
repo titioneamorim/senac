@@ -6,6 +6,7 @@
 package br.com.associacao.dao;
 
 import br.com.associacao.entidade.Professor;
+import br.com.associacao.entidade.Telefone;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -49,6 +50,7 @@ public class ProfessorDaoImpl implements Serializable {
             FabricaConexao.fecharConexao(conexao, preparando, resultSet);
         }
     }
+
     public void alterar(Professor professor) throws SQLException {
         String sql = "UPDATE professor SET nome = ?, cpf = ?, numeroCracha = ? WHERE id = ?";
 
@@ -84,19 +86,31 @@ public class ProfessorDaoImpl implements Serializable {
 
     public Professor pesquisarPorId(Integer id) throws SQLException {
         Professor professor = null;
-        String consulta = "SELECT * FROM professor  WHERE id = ?";
-
+        String consulta = "SELECT * FROM professor p inner join telefone t "
+                + "  on t.idProfessor = p.id WHERE p.id = ?";
+        List<Telefone> telefones;
+        Telefone telefone;
         try {
             conexao = FabricaConexao.abrirConexao();
             preparando = conexao.prepareStatement(consulta);
             preparando.setInt(1, id);
             resultSet = preparando.executeQuery();
             if (resultSet.next()) {
+                telefones = new ArrayList<>();
                 professor = new Professor();
                 professor.setId(id);
                 professor.setNome(resultSet.getString("nome"));
                 professor.setCpf(resultSet.getString("cpf"));
                 professor.setNumeroCracha(resultSet.getString("numeroCracha"));
+                do{
+                    telefone = new Telefone();
+                    telefone.setId(resultSet.getInt("t.id"));
+                    telefone.setNumero(resultSet.getString("numero"));
+                    telefone.setOperadora(resultSet.getString("operadora"));
+                    telefone.setTipo(resultSet.getString("tipo"));
+                    telefones.add(telefone);
+                }while(resultSet.next());
+                professor.setTelefones(telefones);
             }
 
         } catch (SQLException e) {
@@ -104,12 +118,12 @@ public class ProfessorDaoImpl implements Serializable {
         } finally {
             FabricaConexao.fecharConexao(conexao, preparando, resultSet);
         }
-
         return professor;
     }
 
     public List<Professor> pesquisarPorNome(String nome) throws SQLException {
-        String consulta = "SELECT * FROM cliente  WHERE nome LIKE ?";
+        String consulta = "SELECT * FROM professor p INNER JOIN telefone t "
+                + "  ON t.idProfessor = p.id WHERE p.nome LIKE ?";
         Professor professor;
         List<Professor> professores = new ArrayList<>();
         try {
@@ -130,7 +144,6 @@ public class ProfessorDaoImpl implements Serializable {
         } finally {
             FabricaConexao.fecharConexao(conexao, preparando, resultSet);
         }
-
         return professores;
     }
 }

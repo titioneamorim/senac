@@ -89,10 +89,5 @@ public class Endereco implements Serializable{
     public void setCep(String cep) {
         this.cep = cep;
     }
-
-    public String getLogradouro(String logradouro) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
    
 }

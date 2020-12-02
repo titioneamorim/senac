@@ -9,11 +9,7 @@ import br.com.associacao.entidade.Cliente;
 import br.com.associacao.entidade.Endereco;
 import br.com.associacao.entidade.Pessoa;
 import java.io.Serializable;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +22,8 @@ public class ClienteDaoImpl extends PessoaDaoImpl implements Serializable {
 
     @Override
     public void salvar(Pessoa pessoa) throws SQLException { 
-        Cliente cliente = (Cliente) pessoa;
-        super.salvar(cliente);
+        super.salvar(pessoa);
+        Cliente cliente = (Cliente) pessoa; // Cast ou casting
         String sql = "INSERT INTO cliente(salario, idPessoa) VALUES(?, ?)";
         try {
             preparando = conexao.prepareStatement(sql);            
@@ -46,30 +42,24 @@ public class ClienteDaoImpl extends PessoaDaoImpl implements Serializable {
     }
 
     public void alterar(Cliente cliente) throws SQLException {
-        String sql = "UPDATE cliente SET nome = ?, email = ?, telefone = ?, salario = ? WHERE id = ?";
-
+        super.alterar(cliente);
+        String sql = "UPDATE cliente SET salario = ? WHERE idPessoa = ?";
         try {
-            conexao = FabricaConexao.abrirConexao();
             preparando = conexao.prepareStatement(sql);
-            preparando.setString(1, cliente.getNome());
-            preparando.setString(2, cliente.getEmail());
-            preparando.setString(3, cliente.getTelefone());
-            preparando.setDouble(4, cliente.getSalario());
-            preparando.setInt(5, cliente.getId());
+            preparando.setDouble(1, cliente.getSalario());
+            preparando.setInt(2, cliente.getId());
             preparando.executeUpdate();
             
             EnderecoDaoImpl enderecoDaoImpl = new EnderecoDaoImpl();
             enderecoDaoImpl.alterarEndereco(cliente.getEndereco(), conexao);
-
         } catch (SQLException e) {
             System.err.println("Erro ao alterar " + e.getMessage());
-
         } finally {
             FabricaConexao.fecharConexao(conexao, preparando);
         }
     }
 
-
+    
     public Cliente pesquisarPorId(Integer id) throws SQLException {
         Cliente cliente = null;
         String consulta = "SELECT * FROM cliente c "
