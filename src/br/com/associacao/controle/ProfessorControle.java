@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  *
- * @author Admin
+ * @author Titione
  */
 public class ProfessorControle implements Serializable {
 

@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  *
- * @author Silvio
+ * @author Titione
  */
 public class FuncionarioDaoImpl extends PessoaDaoImpl implements Serializable {
 

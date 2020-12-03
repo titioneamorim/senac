@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author HP
+ * @author Titione
  */
 public class Telefone implements Serializable {
 

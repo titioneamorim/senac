@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  *
- * @author Admin
+ * @author Titione
  */
 public class ClienteDaoImpl extends PessoaDaoImpl implements Serializable {
 

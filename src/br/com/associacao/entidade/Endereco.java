@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author Admin
+ * @author Titione
  */
 public class Endereco implements Serializable{
    

@@ -16,7 +16,7 @@ import java.sql.Statement;
 
 /**
  *
- * @author Silvio
+ * @author Titione
  */
 public class PessoaDaoImpl implements Serializable {
 

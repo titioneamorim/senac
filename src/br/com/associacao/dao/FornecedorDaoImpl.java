@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  *
- * @author Admin
+ * @author Titione
  */
 public class FornecedorDaoImpl extends PessoaDaoImpl implements Serializable {
 

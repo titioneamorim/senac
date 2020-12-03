@@ -13,7 +13,7 @@ import java.sql.Statement;
 
 /**
  *
- * @author Admin
+ * @author Titione
  */
 public class FabricaConexao {
     

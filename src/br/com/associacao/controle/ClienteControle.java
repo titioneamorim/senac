@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  *
- * @author Admin
+ * @author Titione
  */
 public class ClienteControle implements Serializable {
 

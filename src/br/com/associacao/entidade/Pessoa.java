@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author HP
+ * @author Titione
  */
 public class Pessoa implements Serializable{
     private Integer id;

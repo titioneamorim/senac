@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author Silvio
+ * @author Titione
  */
 public class Funcionario extends Pessoa implements Serializable{
     

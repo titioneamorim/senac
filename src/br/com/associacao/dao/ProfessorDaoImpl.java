@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  *
- * @author HP
+ * @author Titione
  */
 public class ProfessorDaoImpl implements Serializable {
 
@@ -87,9 +87,9 @@ public class ProfessorDaoImpl implements Serializable {
     public Professor pesquisarPorId(Integer id) throws SQLException {
         Professor professor = null;
         String consulta = "SELECT * FROM professor p inner join telefone t "
-                + "  on t.idProfessor = p.id WHERE p.id = ?";
-        List<Telefone> telefones;
+                + "  on t.idProfessor = p.id WHERE p.nome like ? ";
         Telefone telefone;
+        List<Telefone> telefones = null;
         try {
             conexao = FabricaConexao.abrirConexao();
             preparando = conexao.prepareStatement(consulta);
@@ -102,14 +102,14 @@ public class ProfessorDaoImpl implements Serializable {
                 professor.setNome(resultSet.getString("nome"));
                 professor.setCpf(resultSet.getString("cpf"));
                 professor.setNumeroCracha(resultSet.getString("numeroCracha"));
-                do{
+                do {
                     telefone = new Telefone();
                     telefone.setId(resultSet.getInt("t.id"));
                     telefone.setNumero(resultSet.getString("numero"));
                     telefone.setOperadora(resultSet.getString("operadora"));
                     telefone.setTipo(resultSet.getString("tipo"));
                     telefones.add(telefone);
-                }while(resultSet.next());
+                } while (resultSet.next());
                 professor.setTelefones(telefones);
             }
 
@@ -131,13 +131,30 @@ public class ProfessorDaoImpl implements Serializable {
             preparando = conexao.prepareStatement(consulta);
             preparando.setString(1, "%" + nome + "%");
             resultSet = preparando.executeQuery();
+            int idProfessor;
+            int idAntigo = 0;
+            Telefone telefone;
+            List<Telefone> telefones = null;
             while (resultSet.next()) {
-                professor = new Professor();
-                professor.setId(resultSet.getInt("id"));
-                professor.setNome(resultSet.getString("nome"));
-                professor.setCpf(resultSet.getString("cpf"));
-                professor.setNumeroCracha(resultSet.getString("numeroCracha"));
-                professores.add(professor);
+                idProfessor = resultSet.getInt("p.id");
+                if (idProfessor != idAntigo) {
+                    telefones = new ArrayList<>();
+                    professor = new Professor();
+                    professor.setId(idProfessor);
+                    professor.setNome(resultSet.getString("nome"));
+                    professor.setCpf(resultSet.getString("cpf"));
+                    professor.setNumeroCracha(resultSet.getString("numeroCracha"));
+                    professor.setTelefones(telefones);
+                    professores.add(professor);
+                    idAntigo = idProfessor;
+                }
+                telefone = new Telefone();
+                telefone.setId(resultSet.getInt("t.id"));
+                telefone.setNumero(resultSet.getString("numero"));
+                telefone.setOperadora(resultSet.getString("operadora"));
+                telefone.setTipo(resultSet.getString("tipo"));
+                telefones.add(telefone);
+
             }
         } catch (SQLException e) {
             System.err.println("Erro ao pesquisar por nome +" + e.getMessage());

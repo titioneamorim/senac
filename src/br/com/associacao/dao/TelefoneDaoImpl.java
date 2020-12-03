@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  *
- * @author HP
+ * @author Titione
  */
 public class TelefoneDaoImpl implements Serializable{
     

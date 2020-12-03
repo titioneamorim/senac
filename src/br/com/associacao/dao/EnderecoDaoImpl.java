@@ -13,7 +13,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Admin
+ * @author Titione
  */
 public class EnderecoDaoImpl implements Serializable {
 

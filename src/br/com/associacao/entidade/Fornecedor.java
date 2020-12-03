@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author Admin
+ * @author Titione
  */
 public class Fornecedor extends Pessoa implements Serializable{
     

@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author HP
+ * @author Titione
  */
 public class ProfessorDaoImplTest {
 
@@ -26,7 +26,7 @@ public class ProfessorDaoImplTest {
         professorDaoImpl = new ProfessorDaoImpl();
     }
 
-//    @Test
+ //  @Test
     public void testSalvar() throws Exception {
         System.out.println("salvar");
         professor = new Professor(
@@ -70,22 +70,22 @@ public class ProfessorDaoImplTest {
         instance.excluir(id);
     }
 
-    @Test
+ //   @Test
     public void testPesquisarPorId() throws Exception {
         System.out.println("pesquisarPorId");
         professor = professorDaoImpl.pesquisarPorId(2);
         mostraProfessor();
     }
 
-//    @Test
+    @Test
     public void testPesquisarPorNome() throws Exception {
         System.out.println("pesquisarPorNome");
-        String nome = "";
-        ProfessorDaoImpl instance = new ProfessorDaoImpl();
-        List<Professor> expResult = null;
-        List<Professor> result = instance.pesquisarPorNome(nome);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        List<Professor> professores = professorDaoImpl.pesquisarPorNome("Kelly");
+        for (Professor prof : professores) {
+            professor = prof;
+            mostraProfessor();
+        }
+        
     }
 
     public void mostraProfessor() {

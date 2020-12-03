@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author HP
+ * @author Titione
  */
 public class Professor implements Serializable {
 
