@@ -6,6 +6,7 @@
 package br.com.associacao.entidade;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  *
@@ -15,16 +16,22 @@ public class Pessoa implements Serializable{
     private Integer id;
     private String nome;
     private String email;
-    private String telefone;
+    private String cpf;
+    private String rg;
+    private List<Telefone> telefones;
+    private Endereco endereco;
 
     public Pessoa() {
     }
 
-    public Pessoa(Integer id, String nome, String email, String telefone) {
+    public Pessoa(Integer id, String nome, String email, String cpf, String rg, List<Telefone> telefones, Endereco endereco) {
         this.id = id;
         this.nome = nome;
         this.email = email;
-        this.telefone = telefone;
+        this.cpf = cpf;
+        this.rg = rg;
+        this.telefones = telefones;
+        this.endereco = endereco;
     }
 
     public Integer getId() {
@@ -51,12 +58,37 @@ public class Pessoa implements Serializable{
         this.email = email;
     }
 
-    public String getTelefone() {
-        return telefone;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
+    public String getRg() {
+        return rg;
+    }
+
+    public void setRg(String rg) {
+        this.rg = rg;
+    }
+
+    public List<Telefone> getTelefones() {
+        return telefones;
+    }
+
+    public void setTelefones(List<Telefone> telefones) {
+        this.telefones = telefones;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    
    }

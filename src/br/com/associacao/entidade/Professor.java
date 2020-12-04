@@ -5,69 +5,37 @@
  */
 package br.com.associacao.entidade;
 
-import java.io.Serializable;
-import java.util.List;
-
 /**
  *
  * @author Titione
  */
-public class Professor implements Serializable {
+public class Professor {
+    String cracha;
+    String idPessoa;
 
-    private Integer id;
-    private String nome;
-    private String cpf;
-    private String numeroCracha;
-    private List<Telefone> telefones;
+    public Professor(String cracha, String idPessoa) {
+        this.cracha = cracha;
+        this.idPessoa = idPessoa;
+    }
 
+    public String getIdPessoa() {
+        return idPessoa;
+    }
+
+    public void setIdPessoa(String idPessoa) {
+        this.idPessoa = idPessoa;
+    }
+
+  
     public Professor() {
     }
 
-    public Professor(Integer id, String nome, String cpf, String numeroCracha) {
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.numeroCracha = numeroCracha;
+    public String getCracha() {
+        return cracha;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getNumeroCracha() {
-        return numeroCracha;
-    }
-
-    public void setNumeroCracha(String numeroCracha) {
-        this.numeroCracha = numeroCracha;
-    }
-
-    public List<Telefone> getTelefones() {
-        return telefones;
-    }
-
-    public void setTelefones(List<Telefone> telefones) {
-        this.telefones = telefones;
+    public void setCracha(String cracha) {
+        this.cracha = cracha;
     }
     
 }

@@ -19,10 +19,10 @@ import org.junit.Test;
 public class FornecedorDaoImplTest {
 
     private Fornecedor fornecedor;
-    private FornecedorDaoImpl fornecedorDaoImpl;
+    private AlunoDaoImpl fornecedorDaoImpl;
 
     public FornecedorDaoImplTest() {
-        fornecedorDaoImpl = new FornecedorDaoImpl();
+        fornecedorDaoImpl = new AlunoDaoImpl();
     }
 
 //    @Test

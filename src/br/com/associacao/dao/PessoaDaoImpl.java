@@ -5,7 +5,6 @@
  */
 package br.com.associacao.dao;
 
-import br.com.associacao.entidade.Cliente;
 import br.com.associacao.entidade.Pessoa;
 import java.io.Serializable;
 import java.sql.Connection;
@@ -25,13 +24,15 @@ public class PessoaDaoImpl implements Serializable {
     protected ResultSet resultSet;
 
     public void salvar(Pessoa pessoa) throws SQLException {
-        String sql = "INSERT INTO pessoa(nome, email, telefone) VALUES(?, ?, ?)";
+        String sql = "INSERT INTO pessoa(nome, rg, cpf, email) VALUES(?, ?, ?, ?)";
         try {
             conexao = FabricaConexao.abrirConexao();
             preparando = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparando.setString(1, pessoa.getNome());
-            preparando.setString(2, pessoa.getEmail());
-            preparando.setString(3, pessoa.getTelefone());
+            preparando.setString(2, pessoa.getRg());
+            preparando.setString(3, pessoa.getCpf());
+            preparando.setString(4, pessoa.getEmail());
+            preparando.setInt(4, pessoa.getId());
             preparando.executeUpdate();
             resultSet = preparando.getGeneratedKeys(); 
             resultSet.next(); 
@@ -42,13 +43,14 @@ public class PessoaDaoImpl implements Serializable {
     }
     
     public void alterar(Pessoa pessoa) throws SQLException {
-        String sql = "UPDATE pessoa SET nome = ?, email = ?, telefone = ? WHERE id = ?";
+        String sql = "UPDATE pessoa SET nome = ?, rg = ?, cpf = ?, email = ? WHERE id = ?";
         try {
             conexao = FabricaConexao.abrirConexao();
             preparando = conexao.prepareStatement(sql);
             preparando.setString(1, pessoa.getNome());
-            preparando.setString(2, pessoa.getEmail());
-            preparando.setString(3, pessoa.getTelefone());
+            preparando.setString(2, pessoa.getRg());
+            preparando.setString(3, pessoa.getCpf());
+            preparando.setString(4, pessoa.getEmail());
             preparando.setInt(4, pessoa.getId());
             preparando.executeUpdate();
             
