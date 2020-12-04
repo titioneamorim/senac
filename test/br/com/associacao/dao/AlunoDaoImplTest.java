@@ -31,6 +31,7 @@ public class AlunoDaoImplTest {
         System.out.println("Teste de criação de aluno: ");
         
         List<Telefone> telefones = new ArrayList<>();
+        Endereco endereco;
         
         aluno = new Aluno(
                 UtilGerador.gerarCaracter(8), 
@@ -40,11 +41,8 @@ public class AlunoDaoImplTest {
                 UtilGerador.gerarNumero(11), //cpf
                 UtilGerador.gerarNumero(8), //rg 
                 telefones, 
-                gerarEndereco(aluno.getId())
+                gerarEndereco(COMO PEGAR O ID?)
         );
-                 
-                
-                
                 
         for (int i = 0; i < 3; i++) {
             telefones.add(gerarTelefone());
@@ -72,7 +70,7 @@ public class AlunoDaoImplTest {
                UtilGerador.gerarNome(), 
                UtilGerador.gerarCidade(),
                UtilGerador.gerarNome(), 
-               "Casa", 
+               "Meu bairro só tem casa", 
                 idPessoa);
         return endereco;
     }
