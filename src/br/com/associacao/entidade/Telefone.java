@@ -60,5 +60,4 @@ public class Telefone implements Serializable {
         this.operadora = operadora;
     }
 
-    
 }

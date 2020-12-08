@@ -16,21 +16,20 @@ import java.sql.Statement;
  * @author Titione
  */
 public class FabricaConexao {
-    
-    public static Connection abrirConexao()throws SQLException{
+
+    public static Connection abrirConexao() throws SQLException {
         Connection driver = null;
         try {
-           Class.forName("com.mysql.cj.jdbc.Driver");
-           driver = DriverManager.getConnection("jdbc:mysql://localhost:3306/senac"
-               + "?useTimezone=true&serverTimezone=America/Sao_Paulo&zeroDateTimeBehavior=convertToNull",
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            driver = DriverManager.getConnection("jdbc:mysql://localhost:3306/senac"
+                    + "?useTimezone=true&serverTimezone=America/Sao_Paulo&zeroDateTimeBehavior=convertToNull",
                     "root", "root");
         } catch (ClassNotFoundException | SQLException e) {
             System.err.println("Erro ao conectar ao banco " + e.getMessage());
         }
         return driver;
     }
-    
-    
+
     public static void fecharConexao(Connection conn, Statement psmt, ResultSet rs) throws SQLException {
         rs.close();
         conn.close();
@@ -40,6 +39,6 @@ public class FabricaConexao {
     public static void fecharConexao(Connection conn, Statement psmt) throws SQLException {
         conn.close();
         psmt.close();
-    }   
-    
+    }
+
 }

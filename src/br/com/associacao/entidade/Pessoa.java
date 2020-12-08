@@ -12,7 +12,8 @@ import java.util.List;
  *
  * @author Titione
  */
-public class Pessoa implements Serializable{
+public class Pessoa implements Serializable {
+
     private Integer id;
     private String nome;
     private String email;
@@ -24,14 +25,13 @@ public class Pessoa implements Serializable{
     public Pessoa() {
     }
 
-    public Pessoa(Integer id, String nome, String email, String cpf, String rg, List<Telefone> telefones, Endereco endereco) {
+    public Pessoa(Integer id, String nome, String email, String cpf, String rg) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.cpf = cpf;
         this.rg = rg;
-        this.telefones = telefones;
-        this.endereco = endereco;
+
     }
 
     public Integer getId() {
@@ -90,5 +90,4 @@ public class Pessoa implements Serializable{
         this.endereco = endereco;
     }
 
-    
-   }
+}

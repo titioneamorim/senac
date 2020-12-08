@@ -11,11 +11,12 @@ import java.util.List;
  *
  * @author Titione
  */
-public class Aluno extends Pessoa{
+public class Aluno extends Pessoa {
+
     String matricula;
 
-    public Aluno(String matricula, Integer id, String nome, String email, String cpf, String rg, List<Telefone> telefones, Endereco endereco) {
-        super(id, nome, email, cpf, rg, telefones, endereco);
+    public Aluno(String matricula, Integer id, String nome, String email, String cpf, String rg) {
+        super(id, nome, email, cpf, rg);
         this.matricula = matricula;
     }
 
@@ -29,7 +30,5 @@ public class Aluno extends Pessoa{
     public void setMatricula(String matricula) {
         this.matricula = matricula;
     }
-  
-    
-            
+
 }

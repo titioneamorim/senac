@@ -11,8 +11,8 @@ import java.io.Serializable;
  *
  * @author Titione
  */
-public class Endereco implements Serializable{
-   
+public class Endereco implements Serializable {
+
     private Integer id;
     private String logradouro;
     private String numero;
@@ -20,12 +20,11 @@ public class Endereco implements Serializable{
     private String cidade;
     private String estado;
     private String complemento;
-    private Integer idPessoa;
 
     public Endereco() {
     }
 
-    public Endereco(Integer id, String logradouro, String numero, String bairro, String cidade, String estado, String complemento, Integer idPessoa) {
+    public Endereco(Integer id, String logradouro, String numero, String bairro, String cidade, String estado, String complemento) {
         this.id = id;
         this.logradouro = logradouro;
         this.numero = numero;
@@ -33,17 +32,8 @@ public class Endereco implements Serializable{
         this.cidade = cidade;
         this.estado = estado;
         this.complemento = complemento;
-        this.idPessoa = idPessoa;
-    }
 
-    public Integer getIdPessoa() {
-        return idPessoa;
     }
-
-    public void setIdPessoa(Integer idPessoa) {
-        this.idPessoa = idPessoa;
-    }
-
 
     public Integer getId() {
         return id;
@@ -100,5 +90,5 @@ public class Endereco implements Serializable{
     public void setComplemento(String complemento) {
         this.complemento = complemento;
     }
- 
+
 }

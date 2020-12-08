@@ -32,16 +32,15 @@ public class PessoaDaoImpl implements Serializable {
             preparando.setString(2, pessoa.getRg());
             preparando.setString(3, pessoa.getCpf());
             preparando.setString(4, pessoa.getEmail());
-            preparando.setInt(4, pessoa.getId());
             preparando.executeUpdate();
-            resultSet = preparando.getGeneratedKeys(); 
-            resultSet.next(); 
-            pessoa.setId(resultSet.getInt(1)); 
+            resultSet = preparando.getGeneratedKeys();
+            resultSet.next();
+            pessoa.setId(resultSet.getInt(1));
         } catch (SQLException e) {
             System.err.println("Erro ao salvar Pessoa " + e.getMessage());
         }
     }
-    
+
     public void alterar(Pessoa pessoa) throws SQLException {
         String sql = "UPDATE pessoa SET nome = ?, rg = ?, cpf = ?, email = ? WHERE id = ?";
         try {
@@ -51,15 +50,14 @@ public class PessoaDaoImpl implements Serializable {
             preparando.setString(2, pessoa.getRg());
             preparando.setString(3, pessoa.getCpf());
             preparando.setString(4, pessoa.getEmail());
-            preparando.setInt(4, pessoa.getId());
+            preparando.setInt(5, pessoa.getId());
             preparando.executeUpdate();
-            
+
         } catch (SQLException e) {
             System.err.println("Erro ao alterar pessoa " + e.getMessage());
-        } 
+        }
     }
-    
-    
+
     public void excluir(Integer id) throws SQLException {
         try {
             conexao = FabricaConexao.abrirConexao();
@@ -72,6 +70,5 @@ public class PessoaDaoImpl implements Serializable {
             FabricaConexao.fecharConexao(conexao, preparando);
         }
     }
-    
-    
+
 }
